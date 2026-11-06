@@ -3,10 +3,17 @@ import { glob } from "astro/loaders";
 import { z } from "astro/zod";
 
 function removeDupsAndLowerCase(array: string[]) {
-	return [...new Set(array.map((str) => str.toLowerCase()))];
+	return [...new Set(array.map((str) => str.trim().toLowerCase()))];
 }
 
-const titleSchema = z.string().max(60);
+const titleSchema = z.string().trim().min(1, "Title must not be blank").max(60);
+const descriptionSchema = z.string().trim().min(1, "Description must not be blank");
+const tagSchema = z.string().trim().min(1, "Tag must not be blank");
+const postDateSchema = z
+	.string()
+	.or(z.date())
+	.transform((val) => new Date(val))
+	.pipe(z.date());
 
 const baseSchema = z.object({
 	title: titleSchema,
@@ -16,7 +23,7 @@ const post = defineCollection({
 	loader: glob({ base: "./content/posts", pattern: "**/*.{md,mdx}" }),
 	schema: ({ image }) =>
 		baseSchema.extend({
-			description: z.string(),
+			description: descriptionSchema,
 			coverImage: z
 				.object({
 					alt: z.string(),
@@ -25,15 +32,9 @@ const post = defineCollection({
 				.optional(),
 			draft: z.boolean().default(false),
 			ogImage: z.string().optional(),
-			tags: z.array(z.string()).default([]).transform(removeDupsAndLowerCase),
-			publishDate: z
-				.string()
-				.or(z.date())
-				.transform((val) => new Date(val)),
-			updatedDate: z
-				.string()
-				.optional()
-				.transform((str) => (str ? new Date(str) : undefined)),
+			tags: z.array(tagSchema).default([]).transform(removeDupsAndLowerCase),
+			publishDate: postDateSchema,
+			updatedDate: postDateSchema.optional(),
 			pinned: z.boolean().default(false),
 		}),
 });

@@ -47,3 +47,13 @@ pnpm preview
 ```
 
 当前 Astro CLI 会启动后台预览，可用 `pnpm exec astro preview status` 查看状态，`pnpm exec astro preview stop` 停止；开发预览与生产预览不要同时占用 4321 端口。
+
+## 模板删除后的开发缓存修复（2026-11-07）
+
+症状：生产构建已移除模板，但长期运行的开发服务仍显示已删除的示例；打开封面示例时，旧集合中的 `./cover.png` 触发 `LocalImageUsedWrongly`。当前个人文章无封面字段错误，未修改图片组件或 schema。
+
+处理：停止开发服务；将 `.astro/data-store.json`、`.astro/content-assets.mjs`、`.astro/content-modules.mjs` 备份到临时目录后清除，重新执行 `pnpm dev`。生成缓存不纳入 Git。批量删除内容后应同时检查开发预览，不能只验证生产构建。
+
+结果：实际 HTTP 验证首页、文章列表、短记列表和个人文章均为 200，且无模板残留链接；已删除的封面示例、webmentions、welcome 均返回 404；新内容缓存不再包含 `cover.png`。
+
+日常遇到类似情况先重启开发服务；仍有残留时，停服后再清除上述生成缓存并重启，不需要修改有效的本地图片引用。

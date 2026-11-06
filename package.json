@@ -1,15 +1,15 @@
 {
-	"name": "astro-cactus",
+	"name": "blog-ctz-v4",
 	"type": "module",
 	"version": "8.3.0",
-	"private": false,
+	"private": true,
 	"scripts": {
 		"postinstall": "npm rebuild sharp --force",
-		"dev": "astro dev",
+		"dev": "astro dev --host 127.0.0.1 --port 4321",
 		"start": "astro dev",
 		"build": "astro build",
 		"postbuild": "pagefind --site dist",
-		"preview": "astro preview",
+		"preview": "astro preview --host 127.0.0.1 --port 4321",
 		"check": "astro check && biome check",
 		"lint": "biome check --write",
 		"format": "prettier -w . --cache"
@@ -54,5 +54,10 @@
 		"prettier-plugin-tailwindcss": "^0.8.1",
 		"reading-time": "^1.5.0",
 		"typescript": "^6.0.3"
+	},
+	"packageManager": "pnpm@11.1.1",
+	"engines": {
+		"node": ">=24.15.0 <25",
+		"pnpm": ">=11.1.1 <12"
 	}
 }

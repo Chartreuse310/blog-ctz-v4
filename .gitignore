@@ -23,3 +23,7 @@ pnpm-debug.log*
 *.pem
 .cache
 .astro
+# Local environment overrides
+.env.*
+!.env.example
+!.example.env

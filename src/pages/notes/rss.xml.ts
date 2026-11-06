@@ -8,7 +8,7 @@ export const GET = async () => {
 	return rss({
 		title: siteConfig.title,
 		description: siteConfig.description,
-		site: import.meta.env.SITE,
+		site: new URL(import.meta.env.BASE_URL, import.meta.env.SITE),
 		items: notes.map((note) => ({
 			title: note.data.title,
 			pubDate: note.data.publishDate,

@@ -2,6 +2,7 @@ import type { Image, Nodes, Parents } from "mdast";
 import { toString as mdastToString } from "mdast-util-to-string";
 import getReadingTime from "reading-time";
 import type { HastPluginDefinition, MdastPluginDefinition } from "satteri";
+import { withBase } from "../utils/paths";
 
 export function satteriAutolinkHeadingsPlugin(): HastPluginDefinition {
 	return {
@@ -98,6 +99,22 @@ export function satteriExternalLinksPlugin(): HastPluginDefinition {
 
 				ctx.setProperty(node, "rel", ["noreferrer", "noopener"]);
 				ctx.setProperty(node, "target", "_blank");
+			},
+		},
+	};
+}
+
+/** Apply deployment prefixes to root-relative links and images in Markdown. */
+export function satteriBasePathsPlugin(base: string): HastPluginDefinition {
+	return {
+		name: "cactus-base-paths",
+		element: {
+			filter: ["a", "img", "source"],
+			visit(node, ctx) {
+				for (const key of ["href", "src"] as const) {
+					const value = node.properties?.[key];
+					if (typeof value === "string") ctx.setProperty(node, key, withBase(value, base));
+				}
 			},
 		},
 	};

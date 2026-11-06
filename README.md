@@ -62,6 +62,35 @@ pnpm preview
 
 个人页面与新增内容已完成本地提交。正式发布前复核 Git 状态与发布范围，部署目标确定前不自动推送。
 
+## 部署路径配置
+
+支持根目录站点和 GitHub Pages 项目子目录。最终仓库和网址未定，不修改本地默认配置，不自动推送。
+
+通过构建命令的环境变量配置（不是直接把完整网址填进 `SITE_BASE`）：
+
+```sh
+# 项目站点示例：域名不带仓库路径，子目录单独设置
+SITE_URL=https://chartreuse310.github.io SITE_BASE=/blog-ctz-v4/ pnpm build
+
+# 根目录或自定义域名：SITE_BASE=/
+SITE_URL=https://example.com SITE_BASE=/ pnpm build
+```
+
+变量未指定时，域名沿用 `src/site.config.ts` 的本地地址，路径为 `/`。Actions 后续也在构建步骤设置这两个变量。`SITE_URL` 只接受根域名；`SITE_BASE` 会规范化为首尾带 `/` 的路径。
+
+导航、分页、标签、短记、图标、默认／自动分享图、RSS、sitemap、manifest 和 Markdown 中以 `/` 开头的站内链接／图片均支持前缀。Markdown 同目录图片继续用 `./图片.png`；绝对外链和 `#锚点` 保持原样。新增组件时用 `withBase()` 包装根路径，不手写仓库名前缀；分页已包含前缀时不会重复添加。
+
+验证命令：
+
+```sh
+pnpm test
+pnpm check
+# 对应构建后验证，参数须和实际构建匹配
+python scripts/check-deployment.py /blog-ctz-v4/ https://chartreuse310.github.io
+```
+
+改变部署参数后需重新构建；`dist/` 仍作为发布目录，不手动在里面再套仓库名文件夹。开发模式默认根路径：`pnpm dev`。测试构建前停止开发服务，测试结束后重新以默认参数构建并启动，避免混用内容缓存。
+
 ## 验证与维护
 
 验证结果见 [docs/setup-verification.md](docs/setup-verification.md)。后续更新先比较上游差异，不直接覆盖个人配置与内容；远程 `upstream` 仅用于获取模板更新，目前未配置自己的远程仓库。

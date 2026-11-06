@@ -12,16 +12,26 @@ import { satteriAdmonitionsPlugin } from "./src/plugins/admonitions";
 import { satteriGithubCardPlugin } from "./src/plugins/github-cards";
 import {
 	satteriAutolinkHeadingsPlugin,
+	satteriBasePathsPlugin,
 	satteriExternalLinksPlugin,
 	satteriFootnoteLabelPlugin,
 	satteriReadingTimePlugin,
 	satteriUnwrapImagesPlugin,
 } from "./src/plugins/satteri";
 import { expressiveCodeOptions, siteConfig } from "./src/site.config";
+import { normalizeBase } from "./src/utils/paths";
+
+const deploymentBase = normalizeBase(process.env.SITE_BASE || "/");
+const deploymentSite = process.env.SITE_URL || siteConfig.url;
+if (new URL(deploymentSite).pathname !== "/") {
+	throw new Error("SITE_URL must contain only the origin; put the subdirectory in SITE_BASE");
+}
 
 // https://astro.build/config
 export default defineConfig({
-	site: siteConfig.url,
+	site: deploymentSite,
+	base: deploymentBase,
+	trailingSlash: "always",
 	image: {
 		domains: ["webmention.io"],
 	},
@@ -54,7 +64,8 @@ export default defineConfig({
 					type: "image/png",
 				},
 			],
-			start_url: "/",
+			start_url: deploymentBase,
+			scope: deploymentBase,
 			background_color: "#1d1f21",
 			theme_color: "#2bbc8a",
 			display: "standalone",
@@ -79,6 +90,7 @@ export default defineConfig({
 				satteriAutolinkHeadingsPlugin(),
 				satteriFootnoteLabelPlugin(),
 				satteriExternalLinksPlugin(),
+				satteriBasePathsPlugin(deploymentBase),
 			],
 		}),
 	},

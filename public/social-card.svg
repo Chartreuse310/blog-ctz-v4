@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" fill="none">
+  <title>Blog CTZ by CTZ</title>
+  <rect width="1200" height="630" fill="#2abc89"/>
+  <rect x="12" y="12" width="1176" height="606" fill="#1d1f21"/>
+  <svg x="280" y="180" width="153" height="270" viewBox="0 0 272 480">
+  
+  <g id="z-mark">
+    <path fill="#d482ab" d="M45.333 160 0 133.333 226.667 0 272 26.667ZM109.333 389.02 64 362.353 226.667 266.667 272 293.333Z"/>
+    <path fill="#cdffb8" d="M45.333 213.333 0 186.667 0 133.333 45.333 160ZM45.333 426.667 0 400 162.667 90.98 208 117.647ZM45.333 480 0 453.333 0 400 45.333 426.667Z"/>
+    <path fill="#2abc89" d="M45.333 160 272 26.667 272 80 109.333 389.02 272 293.333 272 346.667 45.333 480 45.333 426.667 208 117.647 45.333 213.333Z"/>
+  </g>
+
+</svg>
+  <g fill="#ffffff" font-family="Menlo, monospace" text-anchor="middle">
+    <text x="730" y="302" font-size="82" font-weight="700">Blog CTZ</text>
+    <text x="730" y="382" font-size="40">by CTZ</text>
+  </g>
+</svg>

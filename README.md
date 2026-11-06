@@ -1,4 +1,4 @@
-# Blog CTZ v4
+# Blog CTZ V4
 
 基于 [Astro Cactus](https://github.com/chrismwilliams/astro-theme-cactus) 的本地博客工程。
 

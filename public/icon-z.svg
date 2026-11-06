@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <title>Z</title>
+  <g id="icon">
+    <path fill="#d482ab" d="M100 116 64 92H400L436 116ZM244 352 208 328H400L436 352Z"/>
+    <path fill="#cdffb8" d="M100 116 64 92V156L100 180ZM292 180 256 156 64 328 100 352ZM100 352 64 328V392L100 416Z"/>
+    <path fill="#2abc89" d="M100 116H436V180L244 352H436V416H100V352L292 180H100Z"/>
+  </g>
+</svg>

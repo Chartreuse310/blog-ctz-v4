@@ -1,18 +1,20 @@
-# Blog CTZ V4
+# Blog CTZ
 
-基于 [Astro Cactus](https://github.com/chrismwilliams/astro-theme-cactus) 的本地博客工程。
+**Blog CTZ - 沙楚子的新新新新博客**
 
-## 当前状态
+![Blog CTZ](public/social-card.png)
 
-本地内容与品牌配置已可使用。用户已确认 post、note、tag 通过测试；首页介绍、关于页基础内容、GitHub 链接、中文语言声明、Z 图标与默认分享图已更新，自动文章分享图已接入思源黑体。尚未部署，未批量迁移旧博客，未接入 Webmentions 或统计服务。
+## 关于
 
-- 上游基线：`a6f7485cf89de38cea647a1809691fd23c4dfb5c`
-- Node：`24.15.0`（`.nvmrc`）；pnpm：`11.1.1`（`packageManager`）
-- 站点名称为 `Blog CTZ`，署名为 `CTZ`。
-- 站点 URL 暂用 `http://localhost:4321/`，正式域名确定后需替换并重新构建。
-- 模板问题直接参考 [上游原始仓库](https://github.com/chrismwilliams/astro-theme-cactus)，原版权与许可证保留在 [LICENSE](LICENSE)。内容目录以当前 schema 为准。
+我是沙楚子，一个研究型设计师，喜欢思考和探索些不一样的东西。这里记录创作、工具实践与日常思考，包含文章（Posts）、短记（Notes）和标签（Tags）。
 
-## 本地启动
+本站基于 [Astro Cactus](https://github.com/chrismwilliams/astro-theme-cactus) 构建，使用 Astro、Tailwind CSS 与 Markdown/MDX，支持明暗主题、Pagefind 搜索、RSS 和中文分享图。
+
+当前尚未部署。正式访问地址将在上线后补充。
+
+## 本地运行
+
+环境：Node **24.15.0**（`.nvmrc`）、pnpm **11.1.1**（`packageManager`）。
 
 ```sh
 nvm use
@@ -20,77 +22,110 @@ pnpm install --frozen-lockfile
 pnpm dev
 ```
 
-打开 `http://localhost:4321/`。如未加载 nvm，先按本机配置加载 nvm；不要使用系统默认 Node 26 代替已锁定的 Node 24。
+打开 <http://localhost:4321/>。`pnpm dev` 会随内容修改自动更新；如果未加载 nvm，先按本机配置加载。
 
-生产预览（先停止开发服务器，避免端口冲突）：
+## 内容维护
+
+| 类型 | 目录 | 用途 |
+| --- | --- | --- |
+| Posts | `content/posts/` | 完整文章，可为每篇建立目录并就近保存图片 |
+| Notes | `content/notes/` | 简短记录 |
+| Tags | `content/tags/` | 可选的标签页标题、简介与介绍正文 |
+
+文章示例：`content/posts/my-post/index.md`
+
+```yaml
+---
+title: "文章标题"
+description: "一句话介绍这篇文章。"
+publishDate: "2026-11-07T12:00:00+08:00"
+tags: [obsidian]
+draft: false
+---
+```
+
+短记示例：`content/notes/my-note.md`
+
+```yaml
+---
+title: "短记标题"
+publishDate: "2026-11-07T12:00:00+08:00"
+---
+```
+
+短记可选填 `description`。Notes 目前没有草稿过滤，未发布内容应放在集合目录外；文章可用 `draft: true`，生产构建会过滤草稿。
+
+标签介绍示例：`content/tags/obsidian.md`
+
+```yaml
+---
+title: "Obsidian"
+description: "笔记与工具实践。"
+---
+```
+
+在 frontmatter 后书写正文。文章填写 `tags` 后会自动生成标签页，只有需要自定义介绍时才建立标签文件；文件名须与标签值匹配。标签会去除首尾空格、转小写并去重。
+
+图片使用标准 Markdown，例如 `![图片说明](./photo.png)`。无需重复正文一级标题，页面会使用 frontmatter 的标题。
+
+文章未设置 `ogImage` 时，自动使用思源黑体生成分享图；设置 `ogImage: "/social-card.png"` 则使用默认分享图。
+
+## 配置与部署
+
+| 配置内容 | 入口 |
+| --- | --- |
+| 站名、作者、简介、语言、日期与菜单 | `src/site.config.ts` |
+| 首页、关于页和社交链接 | `src/pages/index.astro`、`src/pages/about.astro`、`src/components/SocialList.astro` |
+| 正文样式 | `src/layouts/Base.astro`、`src/styles/global.css` |
+| 内容字段校验 | `src/content.config.ts` |
+| 标志与默认分享图 | `public/icon.svg`、`public/social-card.svg`、`public/social-card.png` |
+| 自动分享图排版与字体 | `src/pages/og-image/`、`src/assets/fonts/source-han-sans/` |
+
+支持根目录与 GitHub Pages 项目子目录，通过构建环境变量配置：
 
 ```sh
+# 以下为配置示例，不是已上线地址
+SITE_URL=https://chartreuse310.github.io SITE_BASE=/blog-ctz-v4/ pnpm build
+
+# 根目录／自定义域名示例
+SITE_URL=https://example.com SITE_BASE=/ pnpm build
+```
+
+`SITE_URL` 填根域名，`SITE_BASE` 填路径。未指定时沿用本地地址和 `/`；发布目录为 `dist/`，无需额外套一层仓库名目录。项目计划使用 GitHub Pages，实际部署工作流、仓库与正式 URL 尚未配置。
+
+更多路径说明、常见问题见 [维护指南](docs/maintenance.md)。
+
+## 检查与维护
+
+```sh
+pnpm test
 pnpm check
 pnpm build
 pnpm preview
 ```
 
-`build` 后自动运行 Pagefind，输出在 `dist/`，搜索请在生产预览验证。`pnpm lint` 和 `pnpm format` 会修改文件；只读检查使用 `pnpm check`。
+开发与生产预览均使用 4321 端口，切换前先停止正在运行的服务器。生产预览只展示上次构建结果，搜索也应在生产预览验证。
 
-## 后续修改入口
-
-| 内容 | 位置 |
-| --- | --- |
-| 站名、作者、语言、日期、菜单、站点 URL | `src/site.config.ts` |
-| 首页与关于页 | `src/pages/index.astro`、`src/pages/about.astro` |
-| 社交链接 | `src/components/SocialList.astro` |
-| 正文基础布局与样式 | `src/layouts/Base.astro`、`src/styles/global.css` |
-| 文章、短记、标签 | `content/posts/`、`content/notes/`、`content/tags/` |
-| 内容字段规则 | `src/content.config.ts` |
-| 图标与默认分享图 | `public/icon.svg`、`public/social-card.png` |
-| 中文分享图字体 | `src/pages/og-image/[...slug].png.ts` 及对应字体资源 |
-
-新增文章请参考现有 frontmatter：`title`、`description`、`publishDate` 为必需字段，`draft: true` 用于文章草稿。短记的 `publishDate` 需要带时区，例如 `2026-11-06T12:00:00+08:00`；Notes 当前没有草稿过滤，未发布短记放在集合目录外。
-
-## 待讨论与收尾（2026-11-07）
-
-已完成：post、note、tag 使用测试（用户确认），真实图文文章与两条短记、标签介绍、标题／标签／日期／摘要校验、品牌图标、默认分享图与思源黑体自动分享图。无需继续等待这些样稿或重复进行类型使用测试。
-
-1. **已确定**：站点描述为 `Blog CTZ - 沙楚子的新新新新博客`，界面保持中英混合，不再安排统一汉化。
-2. **已确定**：手机端优化与验收延后，不计入当前阶段的待办；需要推进时再单独检查。
-3. **已完成模板清理**：示例文章和配图、welcome 短记、test 标签介绍、无引用的 Roboto Mono 字体、本地上游 README、上游赞助及陈旧 issue 自动关闭配置已移除。未来参考上游原始仓库；个人内容与许可证保留。
-4. **预计部署到 GitHub**：暂按 GitHub Pages 方向准备；目标仓库、站点 URL／是否自定义域名及发布范围仍未指定，尚未配置部署或推送。
-5. **仍待决定**：是否迁移旧博客、迁移哪些内容；是否扩写关于页或增加社交入口，后两项可选。
-6. **可选专项与后续功能**：桌面正文排版、键盘与中文搜索交互复核；Notes 草稿过滤、评论、Webmentions、统计。目前不新增这些功能。
-
-目前使用 `pnpm dev` 自动更新本地内容；`pnpm preview` 仅展示上次构建结果，新增内容后需先 `pnpm build`。如切换服务器，先停止占用 4321 端口的上一种预览。
-
-个人页面与新增内容已完成本地提交。正式发布前复核 Git 状态与发布范围，部署目标确定前不自动推送。
-
-## 部署路径配置
-
-支持根目录站点和 GitHub Pages 项目子目录。最终仓库和网址未定，不修改本地默认配置，不自动推送。
-
-通过构建命令的环境变量配置（不是直接把完整网址填进 `SITE_BASE`）：
+构建后可检查站内引用是否匹配部署路径：
 
 ```sh
-# 项目站点示例：域名不带仓库路径，子目录单独设置
-SITE_URL=https://chartreuse310.github.io SITE_BASE=/blog-ctz-v4/ pnpm build
-
-# 根目录或自定义域名：SITE_BASE=/
-SITE_URL=https://example.com SITE_BASE=/ pnpm build
-```
-
-变量未指定时，域名沿用 `src/site.config.ts` 的本地地址，路径为 `/`。Actions 后续也在构建步骤设置这两个变量。`SITE_URL` 只接受根域名；`SITE_BASE` 会规范化为首尾带 `/` 的路径。
-
-导航、分页、标签、短记、图标、默认／自动分享图、RSS、sitemap、manifest 和 Markdown 中以 `/` 开头的站内链接／图片均支持前缀。Markdown 同目录图片继续用 `./图片.png`；绝对外链和 `#锚点` 保持原样。新增组件时用 `withBase()` 包装根路径，不手写仓库名前缀；分页已包含前缀时不会重复添加。
-
-验证命令：
-
-```sh
-pnpm test
-pnpm check
-# 对应构建后验证，参数须和实际构建匹配
+# 参数与刚才的构建配置保持一致
 python scripts/check-deployment.py /blog-ctz-v4/ https://chartreuse310.github.io
 ```
 
-改变部署参数后需重新构建；`dist/` 仍作为发布目录，不手动在里面再套仓库名文件夹。开发模式默认根路径：`pnpm dev`。测试构建前停止开发服务，测试结束后重新以默认参数构建并启动，避免混用内容缓存。
+`pnpm lint` 和 `pnpm format` 会改写文件；只读检查使用 `pnpm check`。故障处理与上游更新方式见 [维护指南](docs/maintenance.md)，历史验证记录见 [setup-verification.md](docs/setup-verification.md)。
 
-## 验证与维护
+## 许可与转载
 
-验证结果见 [docs/setup-verification.md](docs/setup-verification.md)。后续更新先比较上游差异，不直接覆盖个人配置与内容；远程 `upstream` 仅用于获取模板更新，目前未配置自己的远程仓库。
+- **代码与开发文档**：采用 [MIT License](LICENSE)，保留 Astro Cactus 原作者及本项目的版权声明；第三方另有许可的部分除外。
+- **原创文章、短记与标签介绍文字**：除另有说明外，采用 [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh-hans)。非商业转载须署名并附原文及许可链接；商业使用或传播演绎作品需另行许可。范围与细则见 [CONTENT-LICENSE.md](CONTENT-LICENSE.md)。
+- **图片、截图、引用材料、第三方作品与站点标志**：不包含在上述原创文字许可范围内，按原有许可或单独说明处理。
+- **思源黑体**：采用 [SIL Open Font License 1.1](src/assets/fonts/source-han-sans/LICENSE.txt)。
+
+网站页脚提供“版权与转载”入口。许可问题可通过 [GitHub](https://github.com/Chartreuse310) 联系 CTZ（沙楚子）。
+
+## 致谢
+
+- [Astro Cactus](https://github.com/chrismwilliams/astro-theme-cactus)：博客基础模板，作者 Chris Williams。
+- [Astro](https://astro.build/)、[Tailwind CSS](https://tailwindcss.com/)、[Pagefind](https://pagefind.app/)：站点构建、样式与搜索。
+- [Source Han Sans／思源黑体](https://github.com/adobe-fonts/source-han-sans)：中文分享图字体。

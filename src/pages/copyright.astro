@@ -1,0 +1,56 @@
+---
+import PageLayout from "@/layouts/Base.astro";
+import codeLicense from "../../LICENSE?raw";
+import fontLicense from "../assets/fonts/source-han-sans/LICENSE.txt?raw";
+
+const meta = {
+	title: "版权与转载",
+	description: "Blog CTZ 的原创内容转载规则、代码许可与第三方素材说明。",
+};
+---
+
+<PageLayout meta={meta}>
+	<h1 class="title mb-12">版权与转载</h1>
+	<div class="prose prose-sm prose-cactus max-w-none">
+		<h2>原创文字</h2>
+		<p>
+			除另有说明外，本站由 CTZ（沙楚子）创作且有权授权的文章、短记与标签介绍文字，采用
+			<a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh-hans" rel="license">CC BY-NC-ND 4.0</a>
+			（署名—非商业性使用—禁止演绎）许可。
+		</p>
+		<p>
+			你可以按协议进行非商业性的复制与分享。转载时请保留作者署名、已提供的版权及许可声明、原文链接和许可协议链接，并按协议标明所作修改；不得暗示作者为转载者背书。
+		</p>
+		<p>
+			商业使用或传播需要作者授权的翻译、改写、改编等演绎作品，请通过
+			<a href="https://github.com/Chartreuse310">GitHub</a> 联系作者取得单独许可。
+			必要的格式转换不必然构成演绎，具体以协议为准。
+		</p>
+		<p>
+			以上为简明说明，不替代或额外限制
+			<a href="https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.zh-hans">协议完整法律文本</a>。
+			法律允许的合理使用等例外不受限制；对遵守条款的使用者，已授予的 CC 许可不可撤销。
+		</p>
+		<h2>图片、引用与标志</h2>
+		<p>
+			图片、截图、引用材料、第三方作品与站点标志不包含在上述原创文字许可范围内，按其原有许可或单独标注处理；没有标注不代表可以自由使用。本声明不授予商标权、隐私权等未明确授予的权利，也不影响既有有效授权。
+		</p>
+		<h2>网站代码</h2>
+		<p>
+			网站代码与开发文档采用 MIT 许可，第三方另有许可的部分除外。本站基于
+			<a href="https://github.com/chrismwilliams/astro-theme-cactus">Astro Cactus</a>，保留其作者 Chris Williams 的版权声明。
+		</p>
+		<details>
+			<summary>查看代码 MIT 许可证</summary>
+			<pre class="whitespace-pre-wrap break-words">{codeLicense}</pre>
+		</details>
+		<h2>字体</h2>
+		<p>
+			自动分享图使用 <a href="https://github.com/adobe-fonts/source-han-sans">思源黑体</a>，字体文件采用 SIL Open Font License 1.1。字体许可不要求生成的 PNG 图片也采用该许可。
+		</p>
+		<details>
+			<summary>查看思源黑体许可证</summary>
+			<pre class="whitespace-pre-wrap break-words">{fontLicense}</pre>
+		</details>
+	</div>
+</PageLayout>

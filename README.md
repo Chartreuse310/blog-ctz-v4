@@ -122,7 +122,7 @@ python scripts/check-deployment.py /blog-ctz-v4/ https://chartreuse310.github.io
 - **图片、截图、引用材料、第三方作品与站点标志**：不包含在上述原创文字许可范围内，按原有许可或单独说明处理。
 - **思源黑体**：采用 [SIL Open Font License 1.1](src/assets/fonts/source-han-sans/LICENSE.txt)。
 
-网站页脚提供“版权与转载”入口。许可问题可通过 [GitHub](https://github.com/Chartreuse310) 联系 CTZ（沙楚子）。
+网站页脚的 `Copyright` 链接指向版权与转载说明。许可问题可通过 [GitHub](https://github.com/Chartreuse310) 联系 CTZ（沙楚子）。
 
 ## 致谢
 

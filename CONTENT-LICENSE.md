@@ -1,5 +1,7 @@
 # 原创内容许可与转载规则
 
+**License summary:** The site code is MIT-licensed. Original text by CTZ is licensed under CC BY-NC-ND 4.0 unless otherwise noted. Images, logos, and third-party materials are excluded from the content license.
+
 Copyright © 2026 CTZ（沙楚子）。
 
 除另有说明外，本站及仓库 `content/posts/`、`content/notes/`、`content/tags/` 中由 CTZ（沙楚子）创作且有权授权的原创文字，采用 [知识共享署名—非商业性使用—禁止演绎 4.0 国际许可协议（CC BY-NC-ND 4.0）](https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh-hans)。

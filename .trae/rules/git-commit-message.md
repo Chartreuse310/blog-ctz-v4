@@ -13,8 +13,7 @@ scene: git_message
 
 示例：
 
-```text
 docs(notes): 新增关于知识的短记
 fix(layout): 统一页脚版权链接文案
 ci(deploy): 添加 GitHub Pages 部署流程
-```
+

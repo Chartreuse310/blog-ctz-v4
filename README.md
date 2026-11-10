@@ -10,7 +10,7 @@
 
 本站基于 [Astro Cactus](https://github.com/chrismwilliams/astro-theme-cactus) 构建，使用 Astro、Tailwind CSS 与 Markdown/MDX，支持明暗主题、Pagefind 搜索、RSS 和中文分享图。
 
-当前尚未部署。正式访问地址将在上线后补充。
+博客已上线，可访问 [Blog CTZ](https://chartreuse310.github.io/blog-ctz-v4/)。
 
 ## 本地运行
 
@@ -84,14 +84,14 @@ description: "笔记与工具实践。"
 支持根目录与 GitHub Pages 项目子目录，通过构建环境变量配置：
 
 ```sh
-# 以下为配置示例，不是已上线地址
+# 复现当前 GitHub Pages 的生产构建
 SITE_URL=https://chartreuse310.github.io SITE_BASE=/blog-ctz-v4/ pnpm build
 
 # 根目录／自定义域名示例
 SITE_URL=https://example.com SITE_BASE=/ pnpm build
 ```
 
-`SITE_URL` 填根域名，`SITE_BASE` 填路径。未指定时沿用本地地址和 `/`；发布目录为 `dist/`，无需额外套一层仓库名目录。项目计划使用 GitHub Pages，实际部署工作流、仓库与正式 URL 尚未配置。
+`SITE_URL` 填根域名，`SITE_BASE` 填路径。未指定时沿用本地地址和 `/`；发布目录为 `dist/`，无需额外套一层仓库名目录。推送到 `main` 后，[GitHub Actions 工作流](.github/workflows/ci.yml) 会运行测试、构建并校验产物路径，通过后将 `dist/` 发布到 GitHub Pages。部署进度可在 [Actions](https://github.com/Chartreuse310/blog-ctz-v4/actions) 查看。
 
 更多路径说明、常见问题见 [维护指南](docs/maintenance.md)。
 

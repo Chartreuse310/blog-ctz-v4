@@ -1,10 +1,11 @@
 ---
 title: "探寻派对游戏界面的简洁——一次AI辅助的尝试"
-description: "记录一次 GameJam 中用 AI 辅助设计派对游戏界面的过程，从搜集参考、制作主视觉到手绘布局与尝试配色。"
+description: "不要让 AI 直出 UI，会不幸！"
 publishDate: "2026-11-11T00:00:00+08:00"
 tags:
   - design
   - graphic-design
+  - marble-party
 ---
 
 > 不要让 AI 直出 UI，会不幸！
